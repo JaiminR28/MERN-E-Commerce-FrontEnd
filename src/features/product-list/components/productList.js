@@ -10,7 +10,7 @@ import {
 	Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-
+import { Link } from "react-router-dom";
 // import {
 // 	decrement,
 // 	increment,
@@ -446,9 +446,12 @@ export default function ProductList() {
 														<div className="mt-4 flex justify-between">
 															<div>
 																<h3 className="text-sm text-gray-700">
-																	<a
-																		href={
-																			product.href
+																	<Link
+																		target={
+																			"_blank"
+																		}
+																		to={
+																			"/product-detail"
 																		}
 																	>
 																		<span
@@ -458,7 +461,7 @@ export default function ProductList() {
 																		{
 																			product.name
 																		}
-																	</a>
+																	</Link>
 																</h3>
 																<p className="mt-1 text-sm text-gray-500">
 																	{
