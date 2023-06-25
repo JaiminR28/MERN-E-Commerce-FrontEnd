@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-	fetProductByFilterAsync,
 	fetchAllProductsAsync,
+	fetchProductByFilterAsync,
 	selectAllProducts,
 } from "../productSlice";
 
@@ -484,27 +484,40 @@ export default function ProductList() {
 	const products = useSelector(selectAllProducts);
 	const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 	const [filter, setFilter] = useState({});
+	const [sort, setSort] = useState({});
 	const dispatch = useDispatch();
 
 	const handleFilter = (e, section, option) => {
-		const newFilter = { ...filter, [section.id]: option.value };
+		//  TODO: SUPPORT FOR MULTIPLE FILTERS TO BE IMPLEMENTED
+
+		const newFilter = { ...filter };
+		if (e.target.checked) {
+			if (newFilter[section.id]) {
+				newFilter[section.id].push(option.value);
+			} else {
+				newFilter[section.id] = [option.value];
+			}
+		} else {
+			const index = newFilter[section.id].findIndex(
+				(el) => el === option.value
+			);
+			newFilter[section.id].splice(index, 1);
+		}
 		setFilter(newFilter);
-		dispatch(fetProductByFilterAsync(newFilter));
 	};
 
 	const handleSort = (e, option) => {
-		const newFilter = {
-			...filter,
+		const sort = {
 			_sort: option.sort,
 			_order: option.order,
 		};
-		setFilter(newFilter);
-		dispatch(fetProductByFilterAsync(newFilter));
+		console.log({ sort });
+		setSort(sort);
 	};
 
 	useEffect(() => {
-		dispatch(fetchAllProductsAsync());
-	}, [dispatch]);
+		dispatch(fetchProductByFilterAsync({ filter }));
+	}, [dispatch, filter]);
 
 	return (
 		<div className="bg-white">
