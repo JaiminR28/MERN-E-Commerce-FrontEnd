@@ -1,4 +1,3 @@
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 const products = [
 	{
