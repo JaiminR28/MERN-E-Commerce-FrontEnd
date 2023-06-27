@@ -578,8 +578,7 @@ function ProductGrid({ products }) {
 									<div className="max-w-xs">
 										<h3 className="text-md text-gray-700">
 											<Link
-												target={"_blank"}
-												to={"/product-detail"}
+												to={`/product-detail/${product.id}`}
 											>
 												<span
 													aria-hidden="true"
