@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, incrementAsync, selectCount } from "../authSlice";
+import {
+	createUserAsync,
+	increment,
+	incrementAsync,
+	selectCount,
+	selectLoggedInUser,
+} from "../authSlice";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Navigate } from "react-router-dom";
 
 export default function Signup() {
 	// const count = useSelector(selectCount);
@@ -14,9 +21,12 @@ export default function Signup() {
 		formState: { errors },
 	} = useForm();
 
+	const user = useSelector(selectLoggedInUser);
+
 	console.log(errors);
 	return (
 		<>
+			{user && <Navigate to={"/"} replace={true} />}
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<img
@@ -34,7 +44,12 @@ export default function Signup() {
 						className="space-y-6"
 						noValidate
 						onSubmit={handleSubmit((data) => {
-							console.log(data);
+							dispatch(
+								createUserAsync({
+									email: data.email,
+									password: data.password,
+								})
+							);
 						})}
 						method="POST"
 					>
@@ -79,13 +94,7 @@ export default function Signup() {
 								<input
 									id="password"
 									{...register("password", {
-										required: "pasword required",
-										pattern: {
-											value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$/gm,
-											message: `- at least 8 characters\n
-											- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-											- Can contain special characters`,
-										},
+										required: "pasword is required",
 									})}
 									type="password"
 									className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

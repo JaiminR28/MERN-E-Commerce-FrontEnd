@@ -2402,6 +2402,16 @@
       "addresses": [],
       "role": "admin",
       "id": 3
+    },
+    {
+      "email": "jaiminrathwa28@gmail.com",
+      "password": "Jaimin@28",
+      "id": 4
+    },
+    {
+      "email": "202001423@daiict.ac.in",
+      "password": "Jaimin@28",
+      "id": 5
     }
   ],
   "cart": [

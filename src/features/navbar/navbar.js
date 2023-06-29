@@ -21,9 +21,9 @@ const navigation = [
 	{ name: "Reports", href: "#", current: false },
 ];
 const userNavigation = [
-	{ name: "Your Profile", href: "#" },
-	{ name: "Settings", href: "#" },
-	{ name: "Sign out", href: "#" },
+	{ name: "Your Profile", link: "/" },
+	{ name: "Settings", link: "/" },
+	{ name: "Sign out", link: "/login" },
 ];
 
 function classNames(...classes) {
@@ -134,9 +134,9 @@ function Navbar({ children }) {
 																	{({
 																		active,
 																	}) => (
-																		<a
-																			href={
-																				item.href
+																		<Link
+																			to={
+																				item.link
 																			}
 																			className={classNames(
 																				active
@@ -148,7 +148,7 @@ function Navbar({ children }) {
 																			{
 																				item.name
 																			}
-																		</a>
+																		</Link>
 																	)}
 																</Menu.Item>
 															)
