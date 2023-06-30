@@ -42,6 +42,7 @@ export default function LogIn() {
 									password: data.password,
 								})
 							);
+							return false;
 							// createUserAsync({
 							// 	email: data.email,
 							// 	password: data.password,
