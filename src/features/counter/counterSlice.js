@@ -5,7 +5,10 @@ const initialState = {
 	value: 0,
 	status: "idle",
 };
-
+export const incrementAsync = createAsyncThunk(
+	"orders/createOrder",
+	async (amount) => {}
+);
 export const counterSlice = createSlice({
 	name: "counter",
 	initialState,

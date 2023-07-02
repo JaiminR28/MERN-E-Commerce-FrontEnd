@@ -11,7 +11,10 @@ import {
 	updateUserAsync,
 } from "../features/auth/authSlice";
 import { useState } from "react";
-import { createOrderAsync } from "../features/orders/orderSlice";
+import {
+	createOrderAsync,
+	selectCurrentOrder,
+} from "../features/orders/orderSlice";
 
 export default function CheckoutPage() {
 	const items = useSelector(selectItems);
@@ -34,6 +37,7 @@ export default function CheckoutPage() {
 	} = useForm();
 
 	const user = useSelector(selectLoggedInUser);
+	const currentOrder = useSelector(selectCurrentOrder);
 
 	const handleQuantity = (e, item) => {
 		e.preventDefault();
@@ -53,23 +57,37 @@ export default function CheckoutPage() {
 		setPaymentMethod(e.target.value);
 	};
 
-	const handleOrder = () => {
-		const order = {
-			items,
-			totalAmount,
-			totalItems,
-			user,
-			paymentMethod,
-			selectedAddress,
-		};
-		dispatch(createOrderAsync(order));
-		// TODO : redirect to order success page
+	const handleOrder = (e) => {
+		e.preventDefault();
+		if (selectedAddress && paymentMethod) {
+			const order = {
+				items,
+				totalAmount,
+				totalItems,
+				user,
+				paymentMethod,
+				selectedAddress,
+				status: "pending", //other status can be delivered
+			};
+			dispatch(createOrderAsync(order));
+			// TODO : redirect to order success page
+		} else {
+			alert("Enter address and payment");
+		}
 		// TODO: clear cart after order
 		// TODO: on server change the stock of the items
+
+		return false;
 	};
 	return (
 		<>
 			{!items.length && <Navigate to={"/"} replace={true} />}
+			{currentOrder && (
+				<Navigate
+					to={`/order-success/${currentOrder.id}`}
+					replace={true}
+				/>
+			)}
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				<div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
 					<div className="lg:col-span-3">
@@ -445,12 +463,15 @@ export default function CheckoutPage() {
 																Qty
 															</label>
 															<select
-																onChange={(e) =>
+																onChange={(
+																	e
+																) => {
 																	handleQuantity(
 																		e,
 																		item
-																	)
-																}
+																	);
+																	return false;
+																}}
 																className="ml-1.5 text-xs py-1 pr-8 rounded-lg "
 																value={
 																	item.quantity
@@ -490,12 +511,16 @@ export default function CheckoutPage() {
 														</div>
 														<div className="flex">
 															<button
-																onClick={(e) =>
+																onClick={(
+																	e
+																) => {
 																	handleRemove(
 																		e,
 																		item.id
-																	)
-																}
+																	);
+																	return false;
+																}}
+																type="button"
 																className="font-medium text-indigo-600 hover:text-indigo-500"
 															>
 																Remove
@@ -523,8 +548,11 @@ export default function CheckoutPage() {
 								</p>
 								<div className="mt-6">
 									<button
-										onClick={handleOrder}
+										onClick={(e) => {
+											handleOrder(e);
+										}}
 										className="flex items-center w-full cursor-pointer  justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+										type="submit"
 									>
 										Order Now
 									</button>
