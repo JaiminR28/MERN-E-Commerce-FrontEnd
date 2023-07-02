@@ -11,6 +11,7 @@ import {
 	updateUserAsync,
 } from "../features/auth/authSlice";
 import { useState } from "react";
+import { createOrderAsync } from "../features/orders/orderSlice";
 
 export default function CheckoutPage() {
 	const items = useSelector(selectItems);
@@ -45,16 +46,27 @@ export default function CheckoutPage() {
 	};
 
 	const handleAddress = (e) => {
-		console.log(e.target.value);
 		setSelectedAddress(user.addresses[+e.target.value]);
 	};
 
 	const handlePayment = (e) => {
-		console.log(e.target.value);
 		setPaymentMethod(e.target.value);
 	};
 
-	const handleOrder = (e) => {};
+	const handleOrder = () => {
+		const order = {
+			items,
+			totalAmount,
+			totalItems,
+			user,
+			paymentMethod,
+			selectedAddress,
+		};
+		dispatch(createOrderAsync(order));
+		// TODO : redirect to order success page
+		// TODO: clear cart after order
+		// TODO: on server change the stock of the items
+	};
 	return (
 		<>
 			{!items.length && <Navigate to={"/"} replace={true} />}
@@ -512,7 +524,7 @@ export default function CheckoutPage() {
 								<div className="mt-6">
 									<button
 										onClick={handleOrder}
-										className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+										className="flex items-center w-full cursor-pointer  justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
 									>
 										Order Now
 									</button>
