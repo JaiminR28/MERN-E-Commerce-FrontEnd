@@ -42,11 +42,11 @@ export default function ProductDetail() {
 	const dispatch = useDispatch();
 	const params = useParams();
 
-	const handleCart = (event) => {
-		console.log(user.id);
-		debugger;
-		event.preventDefault();
-		dispatch(addToCartAsync({ ...product, quantity: 1, user: user.id }));
+	const handleCart = (e) => {
+		const newItem = { ...product, quantity: 1, user: user.id };
+		delete newItem["id"];
+		dispatch(addToCartAsync(newItem));
+		e.preventDefault();
 	};
 
 	useEffect(() => {
@@ -323,9 +323,10 @@ export default function ProductDetail() {
 
 								<button
 									onClick={handleCart}
+									type="submit"
 									className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 								>
-									Add to bag
+									Add to Cart
 								</button>
 							</form>
 						</div>
