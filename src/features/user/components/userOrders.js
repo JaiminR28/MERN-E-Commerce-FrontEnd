@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLoggedInUserOrdersAsync, selectUserOrders } from "../userSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
@@ -8,7 +8,6 @@ export default function UserOrders() {
 	const dispatch = useDispatch();
 	const user = useSelector(selectLoggedInUser);
 	const orders = useSelector(selectUserOrders);
-	console.log(orders);
 	useEffect(() => {
 		dispatch(fetchLoggedInUserOrdersAsync(user.id));
 	}, []);
@@ -82,30 +81,25 @@ export default function UserOrders() {
 								<p>{order.totalItems} items</p>
 							</div>
 							<p className="mt-0.5 text-sm text-gray-500">
-								Shipping and taxes calculated at checkout.
+								Shipping Address
 							</p>
-							<div className="flex justify-between gap-x-6 py-5">
+							<div className="flex justify-between mt-4 p-3 gap-x-6 py-5 border-solid border-2 border-gray-200">
 								<div className="flex gap-x-4">
-									<input
-										type="radio"
-										name="address"
-										className=" self-center h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-									/>
 									<div className="min-w-0 flex-auto">
 										<p className="text-sm font-semibold leading-6 text-gray-900">
 											{order.selectedAddress?.name}
 										</p>
-										<p className="mt-1 truncate text-xs leading-5 text-gray-500">
+										<p className="mt-1 truncate text-sm leading-5 text-gray-600">
 											email:{" "}
 											{order.selectedAddress?.email}
 										</p>
 									</div>
 								</div>
 								<div className="flex flex-wrap max-w-xs">
-									<p className="block self-start mt-1 text-xs leading-5 text-gray-500">
-										order.selectedAddress:{" "}
+									<p className="block self-start mt-1 text-m leading-5 text-gray-900">
+										Address:{" "}
 									</p>
-									<p className=" self-start mt-1 text-xs leading-5 text-gray-500">
+									<p className=" self-start mt-1 text-s leading-5 text-gray-600">
 										{order.selectedAddress.street +
 											", " +
 											order.selectedAddress.city +

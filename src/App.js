@@ -13,7 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectLoggedInUser } from "./features/auth/authSlice";
 import PageNotFound from "./pages/404Page";
 import OrderSuccessPage from "./pages/orderSuccess";
-import UserOrders from "./features/user/components/userOrders";
+import UserOrdersPage from "./pages/UserOrdersPage";
+import UserProfilePage from "./pages/userProfilePage";
+import { fetchLoggedInUserAsync } from "./features/user/userSlice";
 
 const router = createBrowserRouter([
 	{
@@ -67,7 +69,12 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/orders",
-		element: <UserOrders />,
+		element: <UserOrdersPage />,
+		// TODO: we will add page later right now using component directly
+	},
+	{
+		path: "/profile",
+		element: <UserProfilePage />,
 		// TODO: we will add page later right now using component directly
 	},
 ]);
@@ -78,6 +85,7 @@ function App() {
 	useEffect(() => {
 		if (user) {
 			dispatch(fetchItemsByUserIdAsync(user.id));
+			dispatch(fetchLoggedInUserAsync(user.id));
 		}
 	}, [dispatch, user]);
 	return (
