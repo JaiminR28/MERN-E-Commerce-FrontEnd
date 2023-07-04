@@ -16,10 +16,12 @@ export function addToCart(item) {
 
 export function fetchItemsByUserId(userId) {
 	return new Promise(async (resolve) => {
+		console.log("userId", userId);
 		const response = await fetch(
 			"http://localhost:8000/cart?user=" + userId
 		);
 		const data = await response.json();
+		console.log("fetch User: ", data);
 
 		resolve({ data });
 	});
@@ -61,9 +63,13 @@ export async function resetCart(userId) {
 	// get all items of the user cart --- delete each item from the cart
 
 	return new Promise(async (resolve) => {
+		console.log(userId);
 		const response = await fetchItemsByUserId(userId);
+		console.log("response", response);
 		const items = response.data;
+		console.log("items", items);
 		for (let item of items) {
+			console.log("item", item);
 			await deleteItemInCart(item.id);
 		}
 		resolve({ status: "success" });
