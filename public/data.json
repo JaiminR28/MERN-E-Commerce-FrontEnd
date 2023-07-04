@@ -2440,6 +2440,15 @@
           "city": "Vadodara",
           "state": "Gujarat",
           "pincode": "395007"
+        },
+        {
+          "name": "Narendra Modi",
+          "email": "bjp@gmail.com",
+          "phone": "02222817966",
+          "street": "Y B Chavan Centre, Nariman Point, Gen .jaganaath Bhosale Mrg",
+          "city": "Mumbai",
+          "state": "Maharashtra",
+          "pincode": " 400021"
         }
       ],
       "id": 5
@@ -5784,6 +5793,89 @@
       },
       "status": "pending",
       "id": 36
+    },
+    {
+      "items": [
+        {
+          "title": "HP Pavilion 15-DK1056WM",
+          "description": "HP Pavilion 15-DK1056WM Gaming Laptop 10th Gen Core i5, 8GB, 256GB SSD, GTX 1650 4GB, Windows 10",
+          "price": 1099,
+          "discountPercentage": 6.18,
+          "rating": 4.43,
+          "stock": 89,
+          "brand": "HP Pavilion",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/10/thumbnail.jpeg",
+          "images": [
+            "https://i.dummyjson.com/data/products/10/1.jpg",
+            "https://i.dummyjson.com/data/products/10/2.jpg",
+            "https://i.dummyjson.com/data/products/10/3.jpg",
+            "https://i.dummyjson.com/data/products/10/thumbnail.jpeg"
+          ],
+          "quantity": 4,
+          "user": 5,
+          "id": 1
+        },
+        {
+          "title": "Samsung Galaxy Book",
+          "description": "Samsung Galaxy Book S (2020) Laptop With Intel Lakefield Chip, 8GB of RAM Launched",
+          "price": 1499,
+          "discountPercentage": 4.15,
+          "rating": 4.25,
+          "stock": 50,
+          "brand": "Samsung",
+          "category": "laptops",
+          "thumbnail": "https://i.dummyjson.com/data/products/7/thumbnail.jpg",
+          "images": [
+            "https://i.dummyjson.com/data/products/7/1.jpg",
+            "https://i.dummyjson.com/data/products/7/2.jpg",
+            "https://i.dummyjson.com/data/products/7/3.jpg",
+            "https://i.dummyjson.com/data/products/7/thumbnail.jpg"
+          ],
+          "quantity": 3,
+          "user": 5,
+          "id": 2
+        }
+      ],
+      "totalAmount": 8893,
+      "totalItems": 7,
+      "user": {
+        "email": "202001423@daiict.ac.in",
+        "password": "1",
+        "addresses": [
+          {
+            "name": "Jaimin Rathwa",
+            "email": "202001423@daiict.ac.in",
+            "phone": "1234567891",
+            "street": "yogiraj township,near narayan school. waghodia dabhoi ring road , vadodara",
+            "city": "Vadodara",
+            "state": "Gujarat",
+            "pincode": "395007"
+          },
+          {
+            "name": "Narendra Modi",
+            "email": "bjp@gmail.com",
+            "phone": "02222817966",
+            "street": "Y B Chavan Centre, Nariman Point, Gen .jaganaath Bhosale Mrg",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": " 400021"
+          }
+        ],
+        "id": 5
+      },
+      "paymentMethod": "Card",
+      "selectedAddress": {
+        "name": "Narendra Modi",
+        "email": "bjp@gmail.com",
+        "phone": "02222817966",
+        "street": "Y B Chavan Centre, Nariman Point, Gen .jaganaath Bhosale Mrg",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": " 400021"
+      },
+      "status": "pending",
+      "id": 37
     }
   ]
 }
