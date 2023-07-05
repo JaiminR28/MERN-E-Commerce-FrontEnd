@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
+	clearSelectedProduct,
 	createProductAsync,
 	fetchProductByIdAsync,
 	selectBrands,
 	selectCategories,
 	selectedProductById,
+	updateProductAsync,
 } from "../../product/productSlice";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -21,17 +23,23 @@ function ProductForm() {
 		register,
 		handleSubmit,
 		setValue,
+		reset,
 		formState: { errors },
 	} = useForm();
 
 	useEffect(() => {
 		if (params.id) {
 			dispatch(fetchProductByIdAsync(params.id));
+			reset();
+		} else {
+			dispatch(clearSelectedProduct());
+			reset();
+			// TODO: on product successfully added clear fileds and show a message and redirect to the homepage
 		}
 	}, [params.id, dispatch]);
 
 	useEffect(() => {
-		if (selectedProduct) {
+		if (selectedProduct && params.id) {
 			setValue("title", selectedProduct.title);
 			setValue("description", selectedProduct.description);
 			setValue("price", selectedProduct.price);
@@ -65,6 +73,9 @@ function ProductForm() {
 				product.discount = +product.discount;
 
 				if (params.id) {
+					product.rating = selectedProduct.rating || 0;
+					product.id = params.id;
+					dispatch(updateProductAsync(product));
 				} else {
 					dispatch(createProductAsync(product));
 				}
@@ -472,6 +483,14 @@ function ProductForm() {
 				>
 					Cancel
 				</button>
+				{selectedProduct && (
+					<button
+						onClick={handleDelete}
+						className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+					>
+						Delete
+					</button>
+				)}
 				<button
 					type="submit"
 					className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

@@ -43,6 +43,24 @@ export function createProduct(product) {
 		resolve({ data });
 	});
 }
+
+export function updateProduct(update) {
+	return new Promise(async (resolve) => {
+		//TODO: we will not hard-code server URL here
+		const response = await fetch(
+			"http://localhost:8000/products/" + update.id,
+			{
+				method: "PATCH",
+				body: JSON.stringify(update),
+				headers: { "content-type": "application/json" },
+			}
+		);
+		console.log(response);
+		const data = await response.json();
+		// TODO: on server it will only return some info of user ( not password)
+		resolve({ data });
+	});
+}
 export function fetchProductsByFilter(filter, sort, pagination) {
 	let queryString = "";
 	for (let key in filter) {
