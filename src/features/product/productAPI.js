@@ -31,6 +31,18 @@ export function fetchProductById(id) {
 		resolve({ data });
 	});
 }
+export function createProduct(product) {
+	return new Promise(async (resolve) => {
+		//TODO: we will not hard-code server URL here
+		const response = await fetch("http://localhost:8000/products/", {
+			method: "POST",
+			body: JSON.stringify(product),
+			headers: { "content-type": "application/json" },
+		});
+		const data = await response.json();
+		resolve({ data });
+	});
+}
 export function fetchProductsByFilter(filter, sort, pagination) {
 	let queryString = "";
 	for (let key in filter) {

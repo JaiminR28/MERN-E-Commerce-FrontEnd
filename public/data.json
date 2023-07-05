@@ -1856,6 +1856,55 @@
         "https://i.dummyjson.com/data/products/6/thumbnail.png"
       ],
       "id": 101
+    },
+    {
+      "id": 102
+    },
+    {
+      "id": 103
+    },
+    {
+      "id": 104
+    },
+    {
+      "id": 105
+    },
+    {
+      "id": 106
+    },
+    {
+      "title": "Macbook Pro 14\"",
+      "description": "MacBook Pro takes its power and efficiency further than ever. It delivers exceptional performance whether it’s plugged in or not, and now has even longer battery life. Combined with a stunning Liquid Retina XDR display and all the ports you need — this is a pro laptop without equal.",
+      "price": "1900",
+      "stock": "10",
+      "discountPercentage": "8",
+      "thumbnail": "macbook pro 14\"",
+      "brand": "Apple",
+      "category": "laptops",
+      "images": [
+        "https://images.pexels.com/photos/249538/pexels-photo-249538.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=820&q=80",
+        "https://images.unsplash.com/photo-1580522154071-c6ca47a859ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+      ],
+      "id": 107
+    },
+    {
+      "title": "OPPOF19",
+      "description": "OPPO F19 is officially announced on April 2021.",
+      "price": 400,
+      "stock": 123,
+      "discountPercentage": "17",
+      "thumbnail": "https://i.dummyjson.com/data/products/4/thumbnail.jpg",
+      "brand": "OPPO",
+      "category": "smartphones",
+      "rating": 0,
+      "images": [
+        "https://i.dummyjson.com/data/products/4/1.jpg",
+        "https://i.dummyjson.com/data/products/4/2.jpg",
+        "https://i.dummyjson.com/data/products/4/3.jpg"
+      ],
+      "discount": null,
+      "id": 108
     }
   ],
   "brands": [

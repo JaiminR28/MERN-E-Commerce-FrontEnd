@@ -4,7 +4,7 @@ import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	selectedProductById,
-	fetchAllProductByIdAsync,
+	fetchProductByIdAsync,
 } from "../../product/productSlice";
 import { useParams } from "react-router-dom";
 import { addToCartAsync } from "../../cart/cartSlice";
@@ -53,7 +53,7 @@ export default function AdminProductDetail() {
 	};
 
 	useEffect(() => {
-		dispatch(fetchAllProductByIdAsync(params.id));
+		dispatch(fetchProductByIdAsync(params.id));
 	}, [dispatch, params.id]);
 
 	// TODO:  In server data we will add colors, sizes etc, highlights.

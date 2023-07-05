@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedProductById, fetchAllProductByIdAsync } from "../productSlice";
+import { selectedProductById, fetchProductByIdAsync } from "../productSlice";
 import { useParams } from "react-router-dom";
 import { addToCartAsync } from "../../cart/cartSlice";
 import { selectLoggedInUser } from "../../auth/authSlice";
@@ -50,7 +50,7 @@ export default function ProductDetail() {
 	};
 
 	useEffect(() => {
-		dispatch(fetchAllProductByIdAsync(params.id));
+		dispatch(fetchProductByIdAsync(params.id));
 	}, [dispatch, params.id]);
 
 	// TODO:  In server data we will add colors, sizes etc, highlights.

@@ -10,7 +10,7 @@ import {
 	Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -23,6 +23,7 @@ import {
 	selectTotalItems,
 } from "../../product/productSlice";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
+import { useForm } from "react-hook-form";
 
 const sortOptions = [
 	{ name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -634,9 +635,12 @@ function ProductGrid({ products }) {
 										</div>
 									</div>
 								</div>
-								<button className="rounded-md my-3 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+								<Link
+									to={`/admin/product-form/edit/${product.id}`}
+									className="rounded-md my-3 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+								>
 									Edit Product{" "}
-								</button>
+								</Link>
 							</div>
 						))}
 					</div>
