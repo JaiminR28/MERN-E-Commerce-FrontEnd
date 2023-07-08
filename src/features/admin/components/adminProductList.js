@@ -22,7 +22,7 @@ import {
 	selectCategories,
 	selectTotalItems,
 } from "../../product/productSlice";
-import { ITEMS_PER_PAGE } from "../../../app/constants";
+import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
 import { useForm } from "react-hook-form";
 
 const sortOptions = [
@@ -621,13 +621,7 @@ function ProductGrid({ products }) {
 										</div>
 										<div>
 											<p className="block text-sm font-medium text-gray-900 min-w-fit">
-												${" "}
-												{Math.round(
-													product.price *
-														(1 -
-															product.discountPercentage /
-																100)
-												)}
+												$ {discountedPrice(product)}
 											</p>
 											<p className="block text-sm line-through font-medium text-gray-400 min-w-fit">
 												${product.price}
@@ -635,13 +629,21 @@ function ProductGrid({ products }) {
 										</div>
 									</div>
 								</div>
-								<div className="mt-5">
+								<div className="flex  mt-5 items-center justify-between px-2">
 									<Link
 										to={`/admin/product-form/edit/${product.id}`}
 										className="rounded-md my-3 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 									>
 										Edit Product{" "}
 									</Link>
+									{product.deleted && (
+										<div>
+											<p className="text-sm font-medium text-red-500">
+												{" "}
+												product Deleted
+											</p>
+										</div>
+									)}
 								</div>
 							</div>
 						))}

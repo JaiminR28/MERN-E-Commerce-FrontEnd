@@ -7,12 +7,13 @@ import {
 	selectItems,
 	updateCartAsync,
 } from "./cartSlice";
+import { discountedPrice } from "../../app/constants";
 
 export function Cart() {
 	const items = useSelector(selectItems);
 	const dispatch = useDispatch();
 	const totalAmount = items.reduce(
-		(amount, item) => item.price * item.quantity + amount,
+		(amount, item) => discountedPrice(item) * item.quantity + amount,
 		0
 	);
 	const totalItems = items.reduce((Items, item) => item.quantity + Items, 0);
@@ -66,7 +67,7 @@ export function Cart() {
 													</h3>
 													<p className="ml-4">
 														${" "}
-														{item.price *
+														{discountedPrice(item) *
 															item.quantity}
 													</p>
 												</div>

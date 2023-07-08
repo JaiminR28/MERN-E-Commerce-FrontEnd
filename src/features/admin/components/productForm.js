@@ -52,7 +52,13 @@ function ProductForm() {
 			setValue("image2", selectedProduct.images[1]);
 			setValue("image3", selectedProduct.images[2]);
 		}
-	}, [selectedProduct, setValue]);
+	}, [selectedProduct, params.id, setValue]);
+
+	const handleDelete = () => {
+		const product = { ...selectedProduct };
+		product.deleted = true;
+		dispatch(updateProductAsync(product));
+	};
 
 	return (
 		<form

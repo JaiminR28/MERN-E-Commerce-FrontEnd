@@ -22,7 +22,7 @@ import {
 	selectCategories,
 	selectTotalItems,
 } from "../productSlice";
-import { ITEMS_PER_PAGE } from "../../../app/constants";
+import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
 
 const sortOptions = [
 	{ name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -105,6 +105,7 @@ export default function ProductList() {
 	useEffect(() => {
 		const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
 		dispatch(fetchProductByFilterAsync({ filter, sort, pagination }));
+		// TODO: Server has to filter the products marked as deleted
 	}, [dispatch, filter, sort, page]);
 
 	useEffect(() => {
@@ -607,17 +608,19 @@ function ProductGrid({ products }) {
 									</div>
 									<div>
 										<p className="block text-sm font-medium text-gray-900 min-w-fit">
-											${" "}
-											{Math.round(
-												product.price *
-													(1 -
-														product.discountPercentage /
-															100)
-											)}
+											$ {discountedPrice(product)}
 										</p>
 										<p className="block text-sm line-through font-medium text-gray-400 min-w-fit">
 											${product.price}
 										</p>
+										{product.deleted && (
+											<div>
+												<p className="text-sm font-medium text-red-500">
+													{" "}
+													product Deleted
+												</p>
+											</div>
+										)}
 									</div>
 								</div>
 							</div>

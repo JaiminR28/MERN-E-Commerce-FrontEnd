@@ -6,6 +6,7 @@ import {
 	selectUserOrders,
 } from "../userSlice";
 import { Link } from "react-router-dom";
+import { discountedPrice } from "../../../app/constants";
 
 export default function UserOrders() {
 	const dispatch = useDispatch();
@@ -52,8 +53,9 @@ export default function UserOrders() {
 														</h3>
 														<p className="ml-4">
 															${" "}
-															{item.price *
-																item.quantity}
+															{discountedPrice(
+																item
+															) * item.quantity}
 														</p>
 													</div>
 													<p className="mt-1 text-sm text-gray-500">

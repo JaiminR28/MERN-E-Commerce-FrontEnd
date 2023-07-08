@@ -15,12 +15,13 @@ import {
 	createOrderAsync,
 	selectCurrentOrder,
 } from "../features/orders/orderSlice";
+import { discountedPrice } from "../app/constants";
 
 export default function CheckoutPage() {
 	const items = useSelector(selectItems);
 	const dispatch = useDispatch();
 	const totalAmount = items.reduce(
-		(amount, item) => item.price * item.quantity + amount,
+		(amount, item) => discountedPrice(item) * item.quantity + amount,
 		0
 	);
 
@@ -449,7 +450,9 @@ export default function CheckoutPage() {
 															</h3>
 															<p className="ml-4">
 																${" "}
-																{item.price *
+																{discountedPrice(
+																	item
+																) *
 																	item.quantity}
 															</p>
 														</div>

@@ -7,9 +7,37 @@ export function createOrder(order) {
 		});
 
 		const data = await response.json();
-		console.log("Order API:", data);
 
-		// TODO: on server it will only return some info of user ( not password)
 		resolve({ data });
+	});
+}
+
+export function updateOrder(order) {
+	return new Promise(async (resolve) => {
+		const response = await fetch(
+			"http://localhost:8000/orders/" + order.id,
+			{
+				method: "PATCH",
+				body: JSON.stringify(order),
+				headers: { "content-type": "application/json" },
+			}
+		);
+
+		const data = await response.json();
+		resolve({ data });
+	});
+}
+export function fetchAllOrders({ pagination }) {
+	let queryString = "";
+	for (let key in pagination) {
+		queryString += `${key}=${pagination[key]}&`;
+	}
+
+	const URL = `http://localhost:8000/orders?${queryString}`;
+	return new Promise(async (resolve) => {
+		const response = await fetch(URL);
+		const data = await response.json();
+		const totalOrders = await response.headers.get("X-Total-Count");
+		resolve({ data: { orders: data, totalOrders: +totalOrders } });
 	});
 }

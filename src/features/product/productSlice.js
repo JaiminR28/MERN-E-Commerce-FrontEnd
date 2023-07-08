@@ -31,7 +31,8 @@ export const fetchProductByFilterAsync = createAsyncThunk(
 	"product/fetchProductsByFilter",
 	async ({ filter, sort, pagination }) => {
 		const { data } = await fetchProductsByFilter(filter, sort, pagination);
-
+		// TODO : On server we will support multi values in filter
+		// TODO: Server has to filter the products marked as deleted in case of non-Admin Users
 		// The value we return becomes the `fulfilled` action payload
 		return data;
 	}
