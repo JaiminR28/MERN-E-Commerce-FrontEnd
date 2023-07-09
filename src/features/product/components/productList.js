@@ -566,65 +566,74 @@ function ProductGrid({ products }) {
 			<div className="bg-white">
 				<div className="mx-auto max-w-2xl px-4 py-10 sm:px-6  lg:max-w-7xl lg:px-8">
 					<div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-						{products.map((product) => (
-							<div key={product.id} className="group relative">
-								<div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
-									<img
-										src={product.thumbnail}
-										alt={product.title}
-										className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-									/>
-								</div>
-								<div className="mt-4 flex justify-between">
-									<div className="max-w-xs">
-										<h3 className="text-md text-gray-700">
-											<Link
-												to={`/product-detail/${product.id}`}
-											>
-												<span
-													aria-hidden="true"
-													className="absolute inset-0"
-												/>
-												{product.title}
-											</Link>
-										</h3>
-										<p className="flex mt-3 text-sm text-gray-500">
-											{[0, 1, 2, 3, 4].map((rating) => (
-												<StarIcon
-													key={rating}
-													className={classNames(
-														product.rating > rating
-															? "text-gray-900"
-															: "text-gray-200",
-														"h-5 w-5 flex-shrink-0"
+						{products.map(
+							(product) =>
+								!product.deleted && (
+									<div
+										key={product.id}
+										className="group relative"
+									>
+										<div className="min-h-60 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-60">
+											<img
+												src={product.thumbnail}
+												alt={product.title}
+												className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+											/>
+										</div>
+										<div className="mt-4 flex justify-between">
+											<div className="max-w-xs">
+												<h3 className="text-md text-gray-700">
+													<Link
+														to={`/product-detail/${product.id}`}
+													>
+														<span
+															aria-hidden="true"
+															className="absolute inset-0"
+														/>
+														{product.title}
+													</Link>
+												</h3>
+												<p className="flex mt-3 text-sm text-gray-500">
+													{[0, 1, 2, 3, 4].map(
+														(rating) => (
+															<StarIcon
+																key={rating}
+																className={classNames(
+																	product.rating >
+																		rating
+																		? "text-gray-900"
+																		: "text-gray-200",
+																	"h-5 w-5 flex-shrink-0"
+																)}
+																aria-hidden="true"
+															/>
+														)
 													)}
-													aria-hidden="true"
-												/>
-											))}
-											<span className="align-bottom">
-												{product.rating}
-											</span>
-										</p>
-									</div>
-									<div>
-										<p className="block text-sm font-medium text-gray-900 min-w-fit">
-											$ {discountedPrice(product)}
-										</p>
-										<p className="block text-sm line-through font-medium text-gray-400 min-w-fit">
-											${product.price}
-										</p>
-										{product.deleted && (
-											<div>
-												<p className="text-sm font-medium text-red-500">
-													{" "}
-													product Deleted
+													<span className="align-bottom">
+														{product.rating}
+													</span>
 												</p>
 											</div>
-										)}
+											<div>
+												<p className="block text-sm font-medium text-gray-900 min-w-fit">
+													$ {discountedPrice(product)}
+												</p>
+												<p className="block text-sm line-through font-medium text-gray-400 min-w-fit">
+													${product.price}
+												</p>
+												{product.deleted && (
+													<div>
+														<p className="text-sm font-medium text-red-500">
+															{" "}
+															product Deleted
+														</p>
+													</div>
+												)}
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						))}
+								)
+						)}
 					</div>
 				</div>
 			</div>

@@ -26,9 +26,8 @@ export const updateOrderAsync = createAsyncThunk(
 );
 export const fetchAllOrdersAsync = createAsyncThunk(
 	"orders/fetchAllOrders",
-	async (pagination) => {
-		const response = await fetchAllOrders(pagination);
-		console.log(response);
+	async ({ sort, pagination }) => {
+		const response = await fetchAllOrders({ sort, pagination });
 		return response.data;
 	}
 );

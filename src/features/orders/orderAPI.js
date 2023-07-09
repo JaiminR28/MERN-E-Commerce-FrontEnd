@@ -27,10 +27,14 @@ export function updateOrder(order) {
 		resolve({ data });
 	});
 }
-export function fetchAllOrders({ pagination }) {
+export function fetchAllOrders({ sort, pagination }) {
 	let queryString = "";
 	for (let key in pagination) {
 		queryString += `${key}=${pagination[key]}&`;
+	}
+
+	for (let key in sort) {
+		queryString += `${key}=${sort[key]}&`;
 	}
 
 	const URL = `http://localhost:8000/orders?${queryString}`;

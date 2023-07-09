@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
-import { PencilIcon, XMarkIcon, EyeIcon } from "@heroicons/react/24/outline";
+import {
+	PencilIcon,
+	XMarkIcon,
+	EyeIcon,
+	ArrowDownIcon,
+	ArrowUpIcon,
+} from "@heroicons/react/24/outline";
 
 import {
 	fetchAllOrdersAsync,
@@ -13,15 +19,11 @@ import Pagination from "../../common/pagination";
 
 function AdminOrders() {
 	const [page, setPage] = useState(1);
+	const [sort, setSort] = useState({});
 	const dispatch = useDispatch();
 	const orders = useSelector(selectOrders);
 	const totalOrders = useSelector(selectTotalOrders);
 	const [editableItemId, setEditableItemId] = useState(-1);
-
-	useEffect(() => {
-		const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-		dispatch(fetchAllOrdersAsync({ pagination }));
-	}, [dispatch, page]);
 
 	const handleEdit = (order) => {
 		setEditableItemId(order.id);
@@ -33,8 +35,6 @@ function AdminOrders() {
 
 	const handlePage = (page) => {
 		setPage(page);
-		const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-		dispatch(fetchAllOrdersAsync(pagination));
 	};
 
 	const handleUpdate = (e, order) => {
@@ -42,6 +42,14 @@ function AdminOrders() {
 		const updatedOrder = { ...order, status: e.target.value };
 		dispatch(updateOrderAsync(updatedOrder));
 		setEditableItemId(-1);
+	};
+
+	const handleSort = (sortOption) => {
+		const sort = {
+			_sort: sortOption.sort,
+			_order: sortOption.order,
+		};
+		setSort(sort);
 	};
 
 	const chooseColor = (status) => {
@@ -62,6 +70,11 @@ function AdminOrders() {
 		}
 	};
 
+	useEffect(() => {
+		const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+		dispatch(fetchAllOrdersAsync({ sort, pagination }));
+	}, [dispatch, page, sort]);
+
 	return (
 		<div>
 			<>
@@ -74,18 +87,49 @@ function AdminOrders() {
 									<thead>
 										<tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
 											<th
-												className="py-3 px-6 text-left"
-												onClick={(e) =>
-													handleSort("id")
+												className="py-3 px-6 text-left cursor-pointer "
+												onClick={() =>
+													handleSort({
+														sort: "id",
+														order:
+															sort?._order ===
+															"asc"
+																? "desc"
+																: "asc",
+													})
 												}
 											>
-												Order#
+												Order#{" "}
+												{sort._sort === "id" &&
+												sort._order === "asc" ? (
+													<ArrowUpIcon className=" inline w-4 h-4 "></ArrowUpIcon>
+												) : (
+													<ArrowDownIcon className=" inline w-4 h-4 "></ArrowDownIcon>
+												)}
 											</th>
 											<th className="py-3 px-6 text-left">
 												Items
 											</th>
-											<th className="py-3 px-6 text-center">
-												Total Amount
+											<th
+												className="py-3 px-6 text-center"
+												onClick={() =>
+													handleSort({
+														sort: "totalAmount",
+														order:
+															sort?._order ===
+															"asc"
+																? "desc"
+																: "asc",
+													})
+												}
+											>
+												Total Amount{" "}
+												{sort._sort === "totalAmount" &&
+												sort._order === "asc" ? (
+													<ArrowUpIcon className=" inline w-4 h-4 "></ArrowUpIcon>
+												) : (
+													<ArrowDownIcon className=" inline w-4 h-4 "></ArrowDownIcon>
+												)}
 											</th>
 											<th className="py-3 px-6 text-center">
 												Shipping Address
@@ -101,22 +145,30 @@ function AdminOrders() {
 									<tbody className="text-gray-600 text-sm font-light">
 										{orders.map((order) => {
 											return (
-												<tr className="border-b border-gray-200 hover:bg-gray-100">
-													<td class="py-3 px-6 text-left whitespace-nowrap">
+												<tr
+													key={order.id}
+													className="border-b border-gray-200 hover:bg-gray-100"
+												>
+													<td className="py-3 px-6 text-left whitespace-nowrap">
 														<div className="flex items-center">
 															<span className="font-medium">
 																{order.id}
 															</span>
 														</div>
 													</td>
-													<td class="py-3 px-6 text-left">
+													<td className="py-3 px-6 text-left">
 														{order.items.map(
 															(item) => {
 																return (
-																	<div class="flex items-center">
-																		<div class="mr-2">
+																	<div
+																		key={
+																			item.id
+																		}
+																		className="flex items-center"
+																	>
+																		<div className="mr-2">
 																			<img
-																				class="w-6 h-6 rounded-full"
+																				className="w-6 h-6 rounded-full"
 																				src={
 																					item.thumbnail
 																				}
@@ -143,13 +195,13 @@ function AdminOrders() {
 														)}
 													</td>
 
-													<td class="py-3 px-6 text-left whitespace-nowrap">
+													<td className="py-3 px-6 text-left whitespace-nowrap">
 														<div className="flex items-center">
 															${order.totalAmount}
 														</div>
 													</td>
 
-													<td class="py-3 px-6 text-left whitespace-wrap w-6">
+													<td className="py-3 px-6 text-left whitespace-wrap w-6">
 														<div className="flex items-start flex-col">
 															<strong className="flex">
 																{
@@ -184,7 +236,7 @@ function AdminOrders() {
 														</div>
 													</td>
 
-													<td class="py-3 px-6 text-left whitespace-nowrap">
+													<td className="py-3 px-6 text-left whitespace-nowrap">
 														<div className="flex items-center">
 															{order.id ===
 															editableItemId ? (
@@ -225,9 +277,9 @@ function AdminOrders() {
 														</div>
 													</td>
 
-													<td class="py-3 px-4 text-left whitespace-nowrap">
-														<div class="flex item-center justify-between">
-															<div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+													<td className="py-3 px-4 text-left whitespace-nowrap">
+														<div className="flex item-center justify-between">
+															<div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
 																<EyeIcon
 																	className="w-5 h-5"
 																	onClick={(
@@ -239,7 +291,7 @@ function AdminOrders() {
 																	}
 																></EyeIcon>
 															</div>
-															<div class="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
+															<div className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
 																<PencilIcon
 																	className="w-5 h-5"
 																	onClick={(
@@ -251,7 +303,7 @@ function AdminOrders() {
 																	}
 																></PencilIcon>
 															</div>
-															<div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"></div>
+															<div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"></div>
 														</div>
 													</td>
 												</tr>
