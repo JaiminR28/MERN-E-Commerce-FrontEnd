@@ -9,6 +9,7 @@ import {
 	updateOrderAsync,
 } from "../../orders/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from "../../common/pagination";
 
 function AdminOrders() {
 	const [page, setPage] = useState(1);
@@ -28,6 +29,12 @@ function AdminOrders() {
 	};
 	const handleShow = () => {
 		console.log("handle Show");
+	};
+
+	const handlePage = (page) => {
+		setPage(page);
+		const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+		dispatch(fetchAllOrdersAsync(pagination));
 	};
 
 	const handleUpdate = (e, order) => {
@@ -66,7 +73,12 @@ function AdminOrders() {
 								<table className="min-w-max w-full table-auto">
 									<thead>
 										<tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-											<th className="py-3 px-6 text-left">
+											<th
+												className="py-3 px-6 text-left"
+												onClick={(e) =>
+													handleSort("id")
+												}
+											>
 												Order#
 											</th>
 											<th className="py-3 px-6 text-left">
@@ -250,6 +262,12 @@ function AdminOrders() {
 							</div>
 						</div>
 					</div>
+					<Pagination
+						page={page}
+						setPage={setPage}
+						handlePage={handlePage}
+						totalItems={totalOrders}
+					/>
 				</div>
 			</>
 		</div>
