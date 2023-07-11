@@ -1,7 +1,7 @@
 export function createUser(userData) {
 	return new Promise(async (resolve) => {
 		//TODO: we will not hard-code server URL here
-		const response = await fetch("http://localhost:8000/users", {
+		const response = await fetch("http://localhost:4000/users", {
 			method: "POST",
 			body: JSON.stringify(userData),
 			headers: { "content-type": "application/json" },
@@ -19,7 +19,7 @@ export function checkUser(loginInfo) {
 		const email = loginInfo.email;
 		const password = loginInfo.password;
 		const response = await fetch(
-			"http://localhost:8000/users?email=" + email
+			"http://localhost:4000/users?email=" + email
 		);
 		const data = await response.json();
 		if (data.length) {

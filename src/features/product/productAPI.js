@@ -2,6 +2,7 @@ export function fetchAllProducts() {
 	return new Promise(async (resolve) => {
 		const response = await fetch("http://localhost:8000/products");
 		const data = await response.json();
+
 		resolve(data);
 	});
 }
@@ -55,7 +56,6 @@ export function updateProduct(update) {
 				headers: { "content-type": "application/json" },
 			}
 		);
-		console.log(response);
 		const data = await response.json();
 		// TODO: on server it will only return some info of user ( not password)
 		resolve({ data });
@@ -82,6 +82,6 @@ export function fetchProductsByFilter(filter, sort, pagination) {
 		const response = await fetch(URL);
 		const data = await response.json();
 		const totalItems = await response.headers.get("X-Total-Count");
-		resolve({ data: { products: data, totalItems: +totalItems } });
+		resolve({ data: { products: data, totalItems: +totalItems } }); // converting the total Items into Numbers
 	});
 }
