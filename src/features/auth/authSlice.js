@@ -26,10 +26,14 @@ export const updateUserAsync = createAsyncThunk(
 );
 export const checkuserAsync = createAsyncThunk(
 	"user/checkUser",
-	async (logInInfo) => {
-		const response = await checkUser(logInInfo);
-
-		return response.data;
+	async (logInInfo, { rejectWithValue }) => {
+		try {
+			const response = await checkUser(logInInfo);
+			return response.data;
+		} catch (err) {
+			console.log(err);
+			return rejectWithValue(err);
+		}
 	}
 );
 export const signOutAsync = createAsyncThunk(
@@ -63,7 +67,7 @@ export const userSlice = createSlice({
 			})
 			.addCase(checkuserAsync.rejected, (state, action) => {
 				state.status = "idle";
-				state.error = action.error;
+				state.error = action.payload;
 			})
 			.addCase(updateUserAsync.pending, (state) => {
 				state.status = "loading";

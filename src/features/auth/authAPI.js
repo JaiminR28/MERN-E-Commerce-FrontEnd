@@ -1,7 +1,7 @@
 export function createUser(userData) {
 	return new Promise(async (resolve) => {
 		//TODO: we will not hard-code server URL here
-		const response = await fetch("http://localhost:4000/users", {
+		const response = await fetch("http://localhost:8000/auth/signup", {
 			method: "POST",
 			body: JSON.stringify(userData),
 			headers: { "content-type": "application/json" },
@@ -15,19 +15,26 @@ export function createUser(userData) {
 
 export function checkUser(loginInfo) {
 	return new Promise(async (resolve, reject) => {
-		//TODO: we will not hard-code server URL here
-		const email = loginInfo.email;
-		const password = loginInfo.password;
-		const response = await fetch(
-			"http://localhost:4000/users?email=" + email
-		);
-		const data = await response.json();
-		if (data.length) {
-			if (password === data[0].password) {
-				resolve({ data: data[0] });
-			} else reject({ message: "Wrong Credentials" });
-		} else {
-			reject({ message: "User not found" });
+		try {
+			const response = await fetch("http://localhost:8000/auth/logIn", {
+				method: "POST",
+				body: JSON.stringify(loginInfo),
+				headers: { "content-type": "application/json" },
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				if (data) {
+					resolve({ data });
+				}
+			} else {
+				const err = await response.json();
+				console.log(err);
+				reject({ err });
+			}
+		} catch (error) {
+			console.log(error.meesage);
+			reject({ error });
 		}
 	});
 }
