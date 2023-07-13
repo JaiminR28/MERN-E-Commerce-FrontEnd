@@ -14,10 +14,7 @@ import PageNotFound from "./pages/404Page";
 import OrderSuccessPage from "./pages/orderSuccess";
 import UserOrdersPage from "./pages/UserOrdersPage";
 import UserProfilePage from "./pages/userProfilePage";
-import {
-	fetchLoggedInUserAsync,
-	selectUserInfo,
-} from "./features/user/userSlice";
+import { fetchLoggedInUserAsync } from "./features/user/userSlice";
 import LogOut from "./features/auth/components/logout";
 import ForgotPasswordPage from "./pages/forgotPassword";
 import ProtectedAdmin from "./features/auth/components/protectedAdmin";
@@ -25,6 +22,7 @@ import AdminHomePage from "./pages/AdminHome";
 import AdminProductDetailPage from "./pages/AdminProductDetailPage";
 import AdminProductFormPage from "./pages/AdminProductFormPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
+import { selectLoggedInUser } from "./features/auth/authSlice";
 
 const router = createBrowserRouter([
 	{
@@ -136,14 +134,13 @@ const router = createBrowserRouter([
 
 function App() {
 	const dispatch = useDispatch();
-	const user = useSelector(selectUserInfo);
+	const user = useSelector(selectLoggedInUser);
 	useEffect(() => {
 		if (user) {
 			dispatch(fetchItemsByUserIdAsync(user.id));
 			dispatch(fetchLoggedInUserAsync(user.id));
 		}
 	}, [dispatch, user]);
-	window.localStorage.clear();
 	return (
 		<div className="App">
 			<RouterProvider router={router} />

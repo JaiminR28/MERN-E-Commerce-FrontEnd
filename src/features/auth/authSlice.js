@@ -30,9 +30,8 @@ export const checkuserAsync = createAsyncThunk(
 		try {
 			const response = await checkUser(logInInfo);
 			return response.data;
-		} catch (err) {
-			console.log(err);
-			return rejectWithValue(err);
+		} catch (error) {
+			return rejectWithValue(error);
 		}
 	}
 );

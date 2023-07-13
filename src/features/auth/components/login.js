@@ -111,7 +111,11 @@ export default function LogIn() {
 									{errors.password.message}
 								</p>
 							)}
-							{error && <p>{error.message}</p>}
+							{error && (
+								<p className="text-red-500">
+									{error.error.message}
+								</p>
+							)}
 						</div>
 
 						<div>

@@ -28,9 +28,8 @@ export function checkUser(loginInfo) {
 					resolve({ data });
 				}
 			} else {
-				const err = await response.json();
-				console.log(err);
-				reject({ err });
+				const error = await response.json();
+				reject({ error });
 			}
 		} catch (error) {
 			console.log(error.meesage);

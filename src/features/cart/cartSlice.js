@@ -20,6 +20,7 @@ const initialState = {
 export const addToCartAsync = createAsyncThunk(
 	"cart/addToCart",
 	async (item) => {
+		console.log("add to cart", item);
 		const response = await addToCart(item);
 		// The value we return becomes the `fulfilled` action payload
 		return response.data;
@@ -68,6 +69,7 @@ export const cartSlice = createSlice({
 			})
 			.addCase(addToCartAsync.fulfilled, (state, action) => {
 				state.status = "idle";
+				console.log(action.payload);
 				state.items.push(action.payload);
 			})
 			.addCase(fetchItemsByUserIdAsync.pending, (state) => {

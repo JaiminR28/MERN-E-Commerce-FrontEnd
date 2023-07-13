@@ -1,7 +1,6 @@
 export function addToCart(item) {
 	return new Promise(async (resolve) => {
 		//TODO: we will not hard-code server URL here
-
 		const response = await fetch("http://localhost:8000/cart", {
 			method: "POST",
 			body: JSON.stringify(item),
@@ -20,7 +19,6 @@ export function fetchItemsByUserId(userId) {
 			"http://localhost:8000/cart?user=" + userId
 		);
 		const data = await response.json();
-
 		resolve({ data });
 	});
 }
