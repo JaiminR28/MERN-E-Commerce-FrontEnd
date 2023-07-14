@@ -47,12 +47,9 @@ export default function ProductDetail() {
 	// Function to add items in the cart
 	const handleCart = (e) => {
 		e.preventDefault();
-		console.log(cart);
 		// comparing every element of the cart with the current product we are adding to the cart from the product's Detail page so
-		// ACTION: If the product is not present add it to the cart or else console.log that is alreay added'
+		// ACTION: If the product is not present add it to the cart or else log that is alreay added'
 		if (cart.findIndex((item) => item.product.id === product.id) < 0) {
-			console.log("product", product);
-			console.log("user", user);
 			const newItem = {
 				product: product.id,
 				quantity: 1,

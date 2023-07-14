@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectLoggedInUser } from "../../auth/authSlice";
-import { updateUserAsync } from "../userSlice";
+import { selectUserInfo, updateUserAsync } from "../userSlice";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
@@ -8,7 +7,7 @@ import { useState } from "react";
 
 export default function UserProfile() {
 	const dispatch = useDispatch();
-	const user = useSelector(selectLoggedInUser);
+	const userInfo = useSelector(selectUserInfo);
 	const [selectedEditIndex, setSelectedEditIndex] = useState(-1);
 	const [showAddAddressForm, setShowAddAddressForm] = useState(false);
 	const {
@@ -19,27 +18,29 @@ export default function UserProfile() {
 		formState: { errors },
 	} = useForm();
 
-	console.log(user);
 	const handleDelete = (e, index) => {
-		const newUser = { ...user, addresses: [...user.addresses] }; // for shallow copy issue
+		const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
 		newUser.addresses.splice(index, 1);
 		dispatch(updateUserAsync(newUser));
 	};
 	const handleEdit = (addressUpdate, index) => {
-		const newUser = { ...user, addresses: [...user.addresses] }; // for shallow copy issue
+		const newUser = { ...userInfo, addresses: [...userInfo.addresses] }; // for shallow copy issue
 		newUser.addresses.splice(index, 1, addressUpdate);
 		dispatch(updateUserAsync(newUser));
 		setSelectedEditIndex(-1);
 	};
 
 	const handleAdd = (address) => {
-		const newUser = { ...user, addresses: [...user.addresses, address] }; // for shallow copy issue
+		const newUser = {
+			...userInfo,
+			addresses: [...userInfo.addresses, address],
+		}; // for shallow copy issue
 		dispatch(updateUserAsync(newUser));
 		setShowAddAddressForm(false);
 	};
 	const handleEditForm = (index) => {
 		setSelectedEditIndex(index);
-		const address = user.addresses[index];
+		const address = userInfo.addresses[index];
 		setValue("name", address.name);
 		setValue("email", address.email);
 		setValue("phone", address.phone);
@@ -54,14 +55,14 @@ export default function UserProfile() {
 			<div className="mx-auto md:mt-12  bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
 				<div className="border-t border-gray-200 px-4 py-6 sm:px-6">
 					<h1 className="text-4xl font-bold tracking-tight text-gray-900 pt-12 m mb-4 ml-4">
-						Name: {user.name ? user.name : "New user"}
+						Name: {userInfo.name ? userInfo.name : "New userInfo"}
 					</h1>
 					<h3 className="text-l font-bold tracking-tight text-red-900 pt-12 m mb-4 ml-4">
-						email address : {user.email}
+						email address : {userInfo.email}
 					</h3>
-					{user.role === "admin" ? (
+					{userInfo.role === "admin" ? (
 						<h3 className="text-l font-bold tracking-tight text-red-900 pt-12 m mb-4 ml-4">
-							role: {user.role}
+							role: {userInfo.role}
 						</h3>
 					) : null}
 				</div>
@@ -264,7 +265,7 @@ export default function UserProfile() {
 					<p className="mt-0.5 text-sm text-gray-500">
 						Your Addresses
 					</p>
-					{user.addresses.map((address, index) => {
+					{userInfo.addresses.map((address, index) => {
 						return (
 							<div>
 								{selectedEditIndex === index ? (

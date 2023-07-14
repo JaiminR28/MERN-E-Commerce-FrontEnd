@@ -4,6 +4,7 @@ import { selectLoggedInUser } from "../authSlice";
 
 function ProtectedAdmin({ children }) {
 	const user = useSelector(selectLoggedInUser);
+	console.log(user);
 	if (!user) {
 		return <Navigate to="/login" replace={true}></Navigate>;
 	}

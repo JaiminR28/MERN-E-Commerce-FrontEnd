@@ -6,16 +6,14 @@ import {
 } from "../features/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import {
-	selectLoggedInUser,
-	updateUserAsync,
-} from "../features/auth/authSlice";
+import { updateUserAsync } from "../features/user/userSlice";
 import { useState } from "react";
 import {
 	createOrderAsync,
 	selectCurrentOrder,
 } from "../features/orders/orderSlice";
 import { discountedPrice } from "../app/constants";
+import { selectUserInfo } from "../features/user/userSlice";
 
 export default function CheckoutPage() {
 	const items = useSelector(selectItems);
@@ -38,7 +36,8 @@ export default function CheckoutPage() {
 		formState: { errors },
 	} = useForm();
 
-	const user = useSelector(selectLoggedInUser);
+	const user = useSelector(selectUserInfo);
+
 	const currentOrder = useSelector(selectCurrentOrder);
 
 	const handleQuantity = (e, item) => {
@@ -66,7 +65,7 @@ export default function CheckoutPage() {
 				items,
 				totalAmount,
 				totalItems,
-				user,
+				user: user.id,
 				paymentMethod,
 				selectedAddress,
 				status: "pending", //other status can be delivered
@@ -97,7 +96,6 @@ export default function CheckoutPage() {
 							className="bg-white px-5 py-12 mt-12"
 							noValidate
 							onSubmit={handleSubmit((data) => {
-								console.log(data);
 								dispatch(
 									updateUserAsync({
 										...user,
@@ -461,8 +459,7 @@ export default function CheckoutPage() {
 																{discountedPrice(
 																	item.product
 																) *
-																	item.product
-																		.quantity}
+																	item.quantity}
 															</p>
 														</div>
 														<p className="mt-1 text-sm text-gray-500">

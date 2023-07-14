@@ -105,6 +105,9 @@ function Navbar({ children }) {
 															src={user.imageUrl}
 															alt=""
 														/>
+														{/* TODO: the user name
+														and emial div pending to
+											be added */}
 													</Menu.Button>
 												</div>
 												<Transition
