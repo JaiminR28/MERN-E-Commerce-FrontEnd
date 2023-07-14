@@ -105,7 +105,9 @@ export default function AdminProductList() {
 
 	useEffect(() => {
 		const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
-		dispatch(fetchProductByFilterAsync({ filter, sort, pagination }));
+		dispatch(
+			fetchProductByFilterAsync({ filter, sort, pagination, admin: true })
+		);
 	}, [dispatch, filter, sort, page]);
 
 	useEffect(() => {

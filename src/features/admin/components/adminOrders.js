@@ -111,7 +111,7 @@ function AdminOrders() {
 												Items
 											</th>
 											<th
-												className="py-3 px-6 text-center"
+												className="py-3 px-2 text-center"
 												onClick={() =>
 													handleSort({
 														sort: "totalAmount",
@@ -151,7 +151,7 @@ function AdminOrders() {
 												>
 													<td className="py-3 px-6 text-left whitespace-nowrap">
 														<div className="flex items-center">
-															<span className="font-medium">
+															<span className="font-medium text-xs">
 																{order.id}
 															</span>
 														</div>
@@ -170,22 +170,25 @@ function AdminOrders() {
 																			<img
 																				className="w-6 h-6 rounded-full"
 																				src={
-																					item.thumbnail
+																					item
+																						.product
+																						.thumbnail
 																				}
 																			/>
 																		</div>
 																		<span>
 																			{
-																				item.title
+																				item
+																					.product
+																					.title
 																			}{" "}
 																			- #
 																			{
 																				item.quantity
 																			}{" "}
-																			qua.
 																			-{" "}
 																			{discountedPrice(
-																				item
+																				item.product
 																			)}{" "}
 																			$
 																		</span>
@@ -195,7 +198,7 @@ function AdminOrders() {
 														)}
 													</td>
 
-													<td className="py-3 px-6 text-left whitespace-nowrap">
+													<td className="py-3 px-2 text-left whitespace-nowrap">
 														<div className="flex items-center">
 															${order.totalAmount}
 														</div>

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
 	createProduct,
-	fetchAllProducts,
 	fetchBrands,
 	fetchCategories,
 	fetchProductById,
@@ -18,19 +17,24 @@ const initialState = {
 	status: "idle",
 };
 
-export const fetchAllProductsAsync = createAsyncThunk(
-	"product/fetchAllProducts",
-	async () => {
-		const data = await fetchAllProducts();
+// export const fetchAllProductsAsync = createAsyncThunk(
+// 	"product/fetchAllProducts",
+// 	async () => {
+// 		const data = await fetchAllProducts();
 
-		// The value we return becomes the `fulfilled` action payload
-		return data;
-	}
-);
+// 		// The value we return becomes the `fulfilled` action payload
+// 		return data;
+// 	}
+// );
 export const fetchProductByFilterAsync = createAsyncThunk(
 	"product/fetchProductsByFilter",
-	async ({ filter, sort, pagination }) => {
-		const { data } = await fetchProductsByFilter(filter, sort, pagination);
+	async ({ filter, sort, pagination, admin }) => {
+		const { data } = await fetchProductsByFilter(
+			filter,
+			sort,
+			pagination,
+			admin
+		);
 		// TODO : On server we will support multi values in filter
 		// TODO: Server has to filter the products marked as deleted in case of non-Admin Users
 		// The value we return becomes the `fulfilled` action payload
@@ -90,13 +94,6 @@ export const productSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			.addCase(fetchAllProductsAsync.pending, (state) => {
-				state.status = "loading";
-			})
-			.addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
-				state.status = "idle";
-				state.products = action.payload;
-			})
 			.addCase(fetchProductByFilterAsync.pending, (state) => {
 				state.status = "loading";
 			})

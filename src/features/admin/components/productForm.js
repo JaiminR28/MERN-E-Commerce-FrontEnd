@@ -82,8 +82,12 @@ function ProductForm() {
 					product.rating = selectedProduct.rating || 0;
 					product.id = params.id;
 					dispatch(updateProductAsync(product));
+
+					reset();
 				} else {
 					dispatch(createProductAsync(product));
+					// TODO: these alert should check if API failed
+					reset();
 				}
 				// Add product API
 			})}
@@ -93,6 +97,11 @@ function ProductForm() {
 					<h2 className="text-base font-semibold leading-7 text-gray-900">
 						Add Product
 					</h2>
+					{selectedProduct.deleted && (
+						<h5 className="text-red-500 font-bold">
+							Product is deleted
+						</h5>
+					)}
 
 					<div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 						{/* Product Name*/}
@@ -489,7 +498,7 @@ function ProductForm() {
 				>
 					Cancel
 				</button>
-				{selectedProduct && (
+				{selectedProduct && selectedProduct.deleted && (
 					<button
 						onClick={handleDelete}
 						className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
