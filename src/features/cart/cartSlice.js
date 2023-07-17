@@ -10,6 +10,7 @@ import {
 const initialState = {
 	status: "idle",
 	items: [],
+	cartLoaded: false,
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -73,6 +74,11 @@ export const cartSlice = createSlice({
 			.addCase(fetchItemsByUserIdAsync.fulfilled, (state, action) => {
 				state.status = "idle";
 				state.items = action.payload;
+				state.cartLoaded = true;
+			})
+			.addCase(fetchItemsByUserIdAsync.rejected, (state, action) => {
+				state.status = "idle";
+				state.cartLoaded = true;
 			})
 			.addCase(updateCartAsync.pending, (state) => {
 				state.status = "loading";
@@ -105,5 +111,7 @@ export const cartSlice = createSlice({
 });
 
 export const selectItems = (state) => state.cart.items;
+export const selectCartStatus = (state) => state.cart.status;
+export const selectCartLoaded = (state) => state.cart.cartLoaded;
 
 export default cartSlice.reducer;

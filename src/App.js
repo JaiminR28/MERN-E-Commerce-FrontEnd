@@ -22,7 +22,11 @@ import AdminHomePage from "./pages/AdminHome";
 import AdminProductDetailPage from "./pages/AdminProductDetailPage";
 import AdminProductFormPage from "./pages/AdminProductFormPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
-import { selectLoggedInUser } from "./features/auth/authSlice";
+import {
+	checkAuthAsync,
+	selectLoggedInUser,
+	selectUserChecked,
+} from "./features/auth/authSlice";
 
 const router = createBrowserRouter([
 	{
@@ -135,6 +139,12 @@ const router = createBrowserRouter([
 function App() {
 	const dispatch = useDispatch();
 	const user = useSelector(selectLoggedInUser);
+	const userChecked = useSelector(selectUserChecked);
+
+	useEffect(() => {
+		dispatch(checkAuthAsync());
+	}, [dispatch]);
+
 	useEffect(() => {
 		if (user) {
 			dispatch(fetchItemsByUserIdAsync());
@@ -144,7 +154,7 @@ function App() {
 	}, [dispatch, user]);
 	return (
 		<div className="App">
-			<RouterProvider router={router} />
+			{userChecked && <RouterProvider router={router} />}
 		</div>
 	);
 }
