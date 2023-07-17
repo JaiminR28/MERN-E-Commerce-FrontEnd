@@ -39,7 +39,6 @@ export default function LogIn() {
 								checkuserAsync({
 									email: data.email,
 									password: data.password,
-									addresses: [],
 								})
 							);
 							// createUserAsync({

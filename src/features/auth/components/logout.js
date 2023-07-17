@@ -15,6 +15,6 @@ function LogOut() {
 		localStorage.removeItem(localStorage.key(2));
 	});
 
-	return <Navigate to={"/login"}></Navigate>;
+	return <>{!user && <Navigate to={"/login"} replace={true}></Navigate>} </>;
 }
 export default LogOut;

@@ -137,8 +137,9 @@ function App() {
 	const user = useSelector(selectLoggedInUser);
 	useEffect(() => {
 		if (user) {
-			dispatch(fetchItemsByUserIdAsync(user.id));
-			dispatch(fetchLoggedInUserAsync(user.id));
+			dispatch(fetchItemsByUserIdAsync());
+			// we can get the req.user by token on backend no need give in frontEnd that means here above we are sendding the id of the user to get the data but now no need to do that we will do that using the jwt
+			dispatch(fetchLoggedInUserAsync());
 		}
 	}, [dispatch, user]);
 	return (

@@ -1,29 +1,27 @@
 import { useEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { resetCartAsync } from "../features/cart/cartSlice";
-import { selectLoggedInUser } from "../features/auth/authSlice";
 import { resetOrder } from "../features/orders/orderSlice";
 
 function OrderSuccessPage() {
 	const dispatch = useDispatch();
 	const params = useParams();
-	const user = useSelector(selectLoggedInUser);
-	console.log(user);
+
 	// here we can do the rest of the cart and order of users
 
 	useEffect(() => {
 		// resetCart
-		dispatch(resetCartAsync(user.id));
+		dispatch(resetCartAsync());
 		// reset CurrentOrder
 		dispatch(resetOrder());
-	}, [dispatch, user]);
+	}, [dispatch]);
 	return (
 		<>
 			{!params.id && <Navigate to="/" replace={true}></Navigate>}
 			<main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8">
 				<div className="text-center">
-					<p className="text-base text-xl font-semibold text-indigo-600">
+					<p className="text-base font-semibold text-indigo-600">
 						Order Number #{params.id}
 					</p>
 					<h1 className="mt-12 text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">
