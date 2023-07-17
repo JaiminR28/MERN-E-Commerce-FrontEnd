@@ -16,7 +16,6 @@ export function createUser(userData) {
 export function checkUser(loginInfo) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			console.log(loginInfo);
 			const response = await fetch("http://localhost:8000/auth/login", {
 				method: "POST",
 				body: JSON.stringify(loginInfo),
@@ -30,11 +29,11 @@ export function checkUser(loginInfo) {
 				}
 			} else {
 				const error = await response.text();
-				reject({ error });
+				reject(error);
 			}
 		} catch (error) {
 			console.log(error.meesage);
-			reject({ error });
+			reject(error);
 		}
 	});
 }

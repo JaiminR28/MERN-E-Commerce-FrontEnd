@@ -17,8 +17,10 @@ function ProductForm() {
 	const categories = useSelector(selectCategories);
 	const brands = useSelector(selectBrands);
 	const params = useParams();
+	// console.log(params.id);
 
 	const selectedProduct = useSelector(selectedProductById);
+
 	const {
 		register,
 		handleSubmit,
@@ -36,7 +38,7 @@ function ProductForm() {
 			reset();
 			// TODO: on product successfully added clear fileds and show a message and redirect to the homepage
 		}
-	}, [params.id, dispatch]);
+	}, [params.id]);
 
 	useEffect(() => {
 		if (selectedProduct && params.id) {
@@ -97,7 +99,7 @@ function ProductForm() {
 					<h2 className="text-base font-semibold leading-7 text-gray-900">
 						Add Product
 					</h2>
-					{selectedProduct.deleted && (
+					{selectedProduct && selectedProduct.deleted && (
 						<h5 className="text-red-500 font-bold">
 							Product is deleted
 						</h5>

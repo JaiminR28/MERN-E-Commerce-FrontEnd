@@ -63,6 +63,9 @@ function AdminOrders() {
 			case "delivered": {
 				return "bg-green-200 text-green-600";
 			}
+			case "cancelled": {
+				return "bg-red-200 text-red-600";
+			}
 
 			default: {
 				return "bg-grey-200 text-grey-600";
