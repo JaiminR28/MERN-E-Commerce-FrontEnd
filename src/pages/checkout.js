@@ -83,11 +83,14 @@ export default function CheckoutPage() {
 	return (
 		<>
 			{!items.length && <Navigate to={"/"} replace={true} />}
-			{currentOrder && (
+			{currentOrder && currentOrder.paymentMethod === "cash" && (
 				<Navigate
 					to={`/order-success/${currentOrder.id}`}
 					replace={true}
 				/>
+			)}
+			{currentOrder && currentOrder.paymentMethod === "card" && (
+				<Navigate to={`/stripe-checkout/`} replace={true} />
 			)}
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 				<div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
@@ -352,8 +355,8 @@ export default function CheckoutPage() {
 											<div className="mt-6 space-y-6">
 												<div className="flex items-center gap-x-3">
 													<input
-														id="Cash"
-														value="Cash"
+														id="cash"
+														value="cash"
 														name="payments"
 														onChange={handlePayment}
 														type="radio"
@@ -364,7 +367,7 @@ export default function CheckoutPage() {
 														className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
 													/>
 													<label
-														htmlFor="Cash"
+														htmlFor="cash"
 														className="block text-sm font-medium leading-6 text-gray-900"
 													>
 														Cash
@@ -372,18 +375,18 @@ export default function CheckoutPage() {
 												</div>
 												<div className="flex items-center gap-x-3">
 													<input
-														id="Card"
-														value="Card"
+														id="card"
+														value="card"
 														onChange={handlePayment}
 														checked={
 															paymentMethod ===
-															"Card"
+															"card"
 														}
 														type="radio"
 														className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
 													/>
 													<label
-														htmlFor="Card"
+														htmlFor="card"
 														className="block text-sm font-medium leading-6 text-gray-900"
 													>
 														Card

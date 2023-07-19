@@ -27,6 +27,7 @@ import {
 	selectLoggedInUser,
 	selectUserChecked,
 } from "./features/auth/authSlice";
+import StripeCheckout from "./pages/stripeCheckout";
 
 const router = createBrowserRouter([
 	{
@@ -132,6 +133,15 @@ const router = createBrowserRouter([
 	{
 		path: "/profile",
 		element: <UserProfilePage />,
+		// TODO: we will add page later right now using component directly
+	},
+	{
+		path: "/stripe-checkout",
+		element: (
+			<Protected>
+				<StripeCheckout />
+			</Protected>
+		),
 		// TODO: we will add page later right now using component directly
 	},
 ]);

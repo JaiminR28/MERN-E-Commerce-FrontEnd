@@ -52,7 +52,6 @@ export const fetchCategoriesAsync = createAsyncThunk(
 export const createProductAsync = createAsyncThunk(
 	"product/createProduct",
 	async (product) => {
-		console.log(product);
 		const response = await createProduct(product);
 		// The value we return becomes the `fulfilled` action payload
 		return response;
@@ -61,7 +60,6 @@ export const createProductAsync = createAsyncThunk(
 export const updateProductAsync = createAsyncThunk(
 	"product/updateProduct",
 	async (product) => {
-		console.log(product);
 		const response = await updateProduct(product);
 		// The value we return becomes the `fulfilled` action payload
 		return response;
@@ -79,7 +77,6 @@ export const fetchBrandsAsync = createAsyncThunk(
 export const fetchProductByIdAsync = createAsyncThunk(
 	"product/fetchProductById",
 	async (id) => {
-		console.log("id in slice", id);
 		const response = await fetchProductById(id);
 		// The value we return becomes the `fulfilled` action payload
 		return response.data;
