@@ -1,6 +1,6 @@
 export function createOrder(order) {
 	return new Promise(async (resolve) => {
-		const response = await fetch("http://localhost:8000/orders", {
+		const response = await fetch("/orders", {
 			method: "POST",
 			body: JSON.stringify(order),
 			headers: { "content-type": "application/json" },
@@ -14,14 +14,11 @@ export function createOrder(order) {
 
 export function updateOrder(order) {
 	return new Promise(async (resolve) => {
-		const response = await fetch(
-			"http://localhost:8000/orders/" + order.id,
-			{
-				method: "PATCH",
-				body: JSON.stringify(order),
-				headers: { "content-type": "application/json" },
-			}
-		);
+		const response = await fetch("/orders/" + order.id, {
+			method: "PATCH",
+			body: JSON.stringify(order),
+			headers: { "content-type": "application/json" },
+		});
 
 		const data = await response.json();
 		resolve({ data });
@@ -37,7 +34,7 @@ export function fetchAllOrders({ sort, pagination }) {
 		queryString += `${key}=${sort[key]}&`;
 	}
 
-	const URL = `http://localhost:8000/orders?${queryString}`;
+	const URL = `/orders?${queryString}`;
 	return new Promise(async (resolve) => {
 		const response = await fetch(URL);
 		const data = await response.json();

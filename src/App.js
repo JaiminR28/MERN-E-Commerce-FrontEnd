@@ -116,8 +116,12 @@ const router = createBrowserRouter([
 		element: <PageNotFound />,
 	},
 	{
-		path: "/orders",
-		element: <UserOrdersPage />,
+		path: "/my-orders",
+		element: (
+			<Protected>
+				<UserOrdersPage />
+			</Protected>
+		),
 		// TODO: we will add page later right now using component directly
 	},
 	{
@@ -132,7 +136,11 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/profile",
-		element: <UserProfilePage />,
+		element: (
+			<Protected>
+				<UserProfilePage />
+			</Protected>
+		),
 		// TODO: we will add page later right now using component directly
 	},
 	{

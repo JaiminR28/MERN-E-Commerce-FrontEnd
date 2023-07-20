@@ -49,7 +49,7 @@ export default function UserProfile() {
 		setValue("state", address.state);
 		setValue("pincode", address.pincode);
 	};
-
+	console.log(userInfo);
 	return (
 		<div>
 			<div className="mx-auto md:mt-12  bg-white max-w-7xl px-4 sm:px-6 lg:px-8">

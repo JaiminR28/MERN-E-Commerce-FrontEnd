@@ -28,7 +28,6 @@ export default function ForgotPassword() {
 						className="space-y-6"
 						noValidate
 						onSubmit={handleSubmit((data) => {
-							console.log(data);
 							// TODO : implement on backend with email
 						})}
 						method="POST"
